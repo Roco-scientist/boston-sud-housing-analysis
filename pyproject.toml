@@ -1,0 +1,17 @@
+[project]
+name = "maps"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "folium>=0.20.0",
+    "geopy>=2.4.1",
+    "kaleido>=1.2.0",
+    "pandas>=3.0.0",
+    "plotly>=6.5.2",
+    "selenium>=4.40.0",
+    "shapely>=2.1.2",
+    "statsmodels>=0.14.6",
+    "webdriver-manager>=4.0.2",
+]
