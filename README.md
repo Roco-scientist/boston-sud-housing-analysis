@@ -52,7 +52,7 @@ uv run main.py
 ## Data Sources
 - **Housing Data:** Provided provider list.
 - **Demographics:** [2020 Decennial Census P.L. 94-171 Redistricting Data](https://data.boston.gov/dataset/census-data-for-2022-redistricting).
-- **Ward Boundaries:** [City of Boston Open Data Portal](https://data.boston.gov/dataset/ward-boundaries).
+- **Ward Boundaries:** [City of Boston Open Data Portal](https://data.boston.gov/dataset/e491f77b-0094-40ea-ae20-f91cfa9f7ccc/resource/86e050bf-ca6a-45ff-aca1-c68aa611f7d6/download/boston_ward_boundaries.geojson).
 
 ## Output Files
 - `boston_housing_map.html`: Interactive web map.
