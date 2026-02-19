@@ -1,7 +1,3 @@
-This `README.md` is designed for a professional GitHub repository. It highlights the use of `uv` for Python and the specialized R script for the final visualization.
-
-***
-
 # Boston SUD Supportive Housing Analysis
 
 This project provides a spatial and demographic analysis of **Substance Use Disorder (SUD) Supportive Housing Sites** across Boston’s 22 wards. It correlates site density (normalized per 10,000 residents) with racial demographics using 2020 U.S. Census data.
