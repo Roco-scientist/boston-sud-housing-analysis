@@ -125,7 +125,7 @@ def process_spatial_data(df):
 
 # --- 3. MAPPING ---
 def create_map(df, analysis_df, ward_geojson):
-    m = folium.Map(location=[42.33, -71.08], zoom_start=12, tiles="cartodbpositron", control_scale=True)
+    m = folium.Map(location=[42.315, -71.08], zoom_start=13, tiles="cartodbpositron", control_scale=True, font_size='1.5rem')
 
     # Gradient Fill
     folium.Choropleth(
@@ -216,7 +216,7 @@ def save_map_screenshot(html_file):
     opts.add_argument('--headless')
     opts.add_argument('--force-device-scale-factor=2')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
-    driver.set_window_size(2400, 3000)
+    driver.set_window_size(2000, 1500)
     driver.get("file://" + os.path.abspath(html_file))
     time.sleep(5)
     driver.save_screenshot("map_poster_output.png")
