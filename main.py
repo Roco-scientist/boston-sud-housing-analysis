@@ -59,7 +59,7 @@ def get_geocoded_data():
 
         new_coords = df[missing].apply(do_geocode, axis=1, result_type='expand')
         df.loc[missing, ['lat', 'lon']] = new_coords.values
-        df[['Street Address', 'lat', 'lon']].dropna().drop_duplicates().to_csv(CACHE_CSV, index=False)
+        df[['Street Address', 'lat', 'lon']].dropna(subset=['lat']).drop_duplicates().to_csv(CACHE_CSV, index=False)
     
     return df
 
@@ -101,6 +101,12 @@ def process_spatial_data(df):
         unfound[['Street Address', 'Neighborhood', 'Owner/Manager']].to_csv("manual_fix_needed.csv", index=True)
         print(f"⚠️ {len(unfound)} addresses unfound. See manual_fix_needed.csv")
 
+    print("Assigning wards to sites...")
+    df['Ward_ID'] = df.apply(find_ward, axis=1)
+    
+    # ADD WARD # TO CACHE FILE (as requested)
+    df[['Street Address', 'lat', 'lon', 'Ward_ID']].dropna(subset=['lat']).drop_duplicates(subset=['Street Address']).to_csv(CACHE_CSV, index=False)
+
     # Process Census
     census = pd.read_csv(CENSUS_CSV)
     census['Total Pop'] = pd.to_numeric(census['Total Population'].astype(str).str.replace(',', ''), errors='coerce')
@@ -109,9 +115,38 @@ def process_spatial_data(df):
     census['Ward_ID'] = census['Ward and Precinct (Updated 2022)'].astype(str).str.zfill(4).str[:2].astype(int)
     
     ward_stats = census.groupby('Ward_ID').agg({'Total Pop': 'sum', 'White alone': 'sum'}).reset_index()
-    
-    # Aggregate Site Counts
     site_counts = df.groupby('Ward_ID').size().reset_index(name='Site_Count')
+    
+    stats = pd.merge(ward_stats, site_counts, on='Ward_ID', how='left').fillna(0)
+    
+    # Calculations
+    stats['Normalized_Sites'] = (stats['Site_Count'] / stats['Total Pop']) * 10000
+    stats['White_Pct'] = (stats['White alone'] / stats['Total Pop']) * 100
+    
+    # ADD DEMOGRAPHIC GROUPING LOGIC (Specific Wards vs Rest)
+    target_list = [8, 9, 11, 12, 13, 14, 15, 16, 17, 19]
+    stats['Group'] = stats['Ward_ID'].apply(lambda x: 'Target Wards' if x in target_list else 'Remaining Wards')
+    
+    comparison = stats.groupby('Group').agg({
+        'White_Pct': 'mean',
+        'Normalized_Sites': 'mean',
+        'Site_Count': 'sum'
+    })
+
+    print("\n" + "="*50)
+    print("DEMOGRAPHIC COMPARISON SUMMARY")
+    print("-" * 50)
+    print(comparison.to_string())
+    print("="*50 + "\n")
+
+    # CREATE COMPREHENSIVE WARD OUTPUT FILE
+    stats['Neighborhood'] = stats['Ward_ID'].map(WARD_TO_NEIGHBORHOOD)
+    output_columns = [
+        'Ward_ID', 'Neighborhood', 'Total Pop', 'White alone', 
+        'White_Pct', 'Site_Count', 'Normalized_Sites', 'Group'
+    ]
+    stats[output_columns].to_csv("ward_summary_statistics.csv", index=False)
+    print("Comprehensive ward data saved to 'ward_summary_statistics.csv'")
     
     # Merge Statistics
     merged = pd.merge(ward_stats, site_counts, on='Ward_ID', how='left').fillna(0)
