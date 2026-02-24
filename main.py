@@ -8,6 +8,7 @@ import plotly.express as px
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from shapely.geometry import shape, Point
+from shapely.ops import unary_union
 from folium.features import DivIcon
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -253,6 +254,42 @@ def create_ward_map(df, analysis_df, ward_geojson):
         line_opacity=0.3,
         legend_name="Sites per 10k Residents",
     ).add_to(m)
+
+    # 1. Define the target wards
+    target_wards = [8, 9, 11, 12, 13, 14, 15, 16, 17, 19]
+    
+    # 2. Extract and union the geometries to create a single outer boundary
+    belt_geoms = []
+    for feat in ward_geojson['features']:
+        if int(feat['properties'].get('Ward1', 0)) in target_wards:
+            belt_geoms.append(shape(feat['geometry']))
+    
+    dissolved_belt = unary_union(belt_geoms)
+
+    # 3. Add the single thick outer outline
+    folium.GeoJson(
+        dissolved_belt,
+        name="Franklin Park Belt Outline",
+        style_function=lambda x: {
+            "fillColor": "none",
+            "color": "black",
+            "weight": 6,  # Thick outer line
+            "opacity": 1
+        }
+    ).add_to(m)
+
+    # 4. Add the Label (placed near the geographic center of the unioned shape)
+    # folium.Marker(
+    #     location=[42.308, -71.085], 
+    #     icon=DivIcon(
+    #         icon_size=(160,36),
+    #         icon_anchor=(80,18),
+    #         html='''<div style="font-size: 14pt; font-weight: bold; color: black; 
+    #              background-color: rgba(255, 255, 255, 0.8); border: 2px solid black; 
+    #              border-radius: 5px; text-align: center; padding: 3px;">
+    #              Franklin Park Belt</div>''',
+    #     )
+    # ).add_to(m)
 
     # Ward Labels
     for feat in ward_geojson["features"]:
