@@ -1,4 +1,4 @@
-Ward_ID,Neighborhood,Total Pop,White alone,White_Pct,Site_Count,Normalized_Sites,Group
+Ward_ID,Neighborhood,Total Population,White alone,White_Pct,Site_Count,Normalized_Sites,Group
 1,East Boston,43066,15760,36.59499373055311,1.0,0.2322017368689918,Remaining Wards
 2,Charlestown,19120,13626,71.26569037656904,2.0,1.0460251046025104,Remaining Wards
 3,North End/West End,44365,29016,65.40290769750929,6.0,1.3524174461850558,Remaining Wards
@@ -12,7 +12,7 @@ Ward_ID,Neighborhood,Total Pop,White alone,White_Pct,Site_Count,Normalized_Sites
 11,Roxbury/JP,21772,8004,36.762814624288076,8.0,3.6744442403086537,Target Wards
 12,Roxbury,20070,1011,5.037369207772795,13.0,6.4773293472845035,Target Wards
 13,Dorchester,22104,7183,32.49638074556641,13.0,5.881288454578358,Target Wards
-14,Dorchester/Mattapan,34985,972,2.778333571530656,16.0,4.573388595112191,Target Wards
+14,Dorchester/Mattapan,34985,972,2.778333571530656,15.0,4.287551807917679,Target Wards
 15,Dorchester,19346,1814,9.376615320996589,11.0,5.685929907991316,Target Wards
 16,Dorchester (Neponset),25643,11898,46.39862730569746,8.0,3.119759778497056,Target Wards
 17,Dorchester (Codman Sq),26450,4043,15.285444234404535,8.0,3.024574669187145,Target Wards

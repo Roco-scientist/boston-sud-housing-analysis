@@ -1,23 +1,23 @@
-Ward_ID,Total Pop,White alone,Site_Count,Normalized_Sites,White_Pct,Neighborhood,Ward_Label,Display_Label,text_pos
-1,43066,15760,1.0,0.2322017368689918,36.59499373055311,East Boston,Ward 1,Ward 1 (East Boston),top center
-2,19120,13626,2.0,1.0460251046025104,71.26569037656904,Charlestown,Ward 2,Ward 2 (Charlestown),bottom center
-3,44365,29016,6.0,1.3524174461850558,65.40290769750929,North End/West End,Ward 3,Ward 3 (North End/West End),top right
-4,38385,22859,5.0,1.3025921583952065,59.55190829751204,Fenway/South End,Ward 4,Ward 4 (Fenway/South End),bottom left
-5,39792,26853,7.0,1.759147567350221,67.48341375150784,Beacon Hill/Back Bay,Ward 5,Ward 5 (Beacon Hill/Back Bay),top center
-6,27642,22326,3.0,1.0853049706967657,80.76839591925331,South Boston/Seaport,Ward 6,Ward 6 (South Boston/Seaport),bottom center
-7,22052,13877,4.0,1.8138944313440957,62.928532559405035,South Boston/Dorchester,Ward 7,Ward 7 (South Boston/Dorchester),top right
-8,15442,3670,22.0,14.246859215127573,23.766351508871907,South End/Roxbury,Ward 8,Ward 8 (South End/Roxbury),bottom left
-9,19934,6016,12.0,6.019865556335909,30.17959265576402,Roxbury/South End,Ward 9,Ward 9 (Roxbury/South End),top center
-10,24298,9026,5.0,2.057782533541855,37.14709029549757,Mission Hill/JP,Ward 10,Ward 10 (Mission Hill/JP),bottom center
-11,21772,8004,8.0,3.6744442403086537,36.762814624288076,Roxbury/JP,Ward 11,Ward 11 (Roxbury/JP),top right
-12,20070,1011,13.0,6.4773293472845035,5.037369207772795,Roxbury,Ward 12,Ward 12 (Roxbury),bottom left
-13,22104,7183,13.0,5.881288454578358,32.49638074556641,Dorchester,Ward 13,Ward 13 (Dorchester),top center
-14,34985,972,16.0,4.573388595112191,2.778333571530656,Dorchester/Mattapan,Ward 14,Ward 14 (Dorchester/Mattapan),bottom center
-15,19346,1814,11.0,5.685929907991316,9.376615320996589,Dorchester,Ward 15,Ward 15 (Dorchester),top right
-16,25643,11898,8.0,3.119759778497056,46.39862730569746,Dorchester (Neponset),Ward 16,Ward 16 (Dorchester (Neponset)),bottom left
-17,26450,4043,8.0,3.024574669187145,15.285444234404535,Dorchester (Codman Sq),Ward 17,Ward 17 (Dorchester (Codman Sq)),top center
-18,62148,11688,13.0,2.0917809100856024,18.80671944390809,Hyde Park/Mattapan,Ward 18,Ward 18 (Hyde Park/Mattapan),bottom center
-19,24731,14429,7.0,2.830455703368242,58.34377906271481,JP/Roslindale,Ward 19,Ward 19 (JP/Roslindale),top right
-20,39283,28151,2.0,0.5091260850749688,71.66204210472723,West Roxbury/Roslindale,Ward 20,Ward 20 (West Roxbury/Roslindale),bottom left
-21,52283,29842,4.0,0.7650670389992923,57.077826444542204,Allston/Brighton,Ward 21,Ward 21 (Allston/Brighton),top center
-22,32736,19400,0.0,0.0,59.26197458455523,Brighton,Ward 22,Ward 22 (Brighton),bottom center
+Ward_ID,Total Population,White alone,Site_Count,Normalized_Sites,White_Pct,Group,Neighborhood,Ward_Label,Display_Label,text_pos
+1,43066,15760,1.0,0.2322017368689918,36.59499373055311,Remaining Wards,East Boston,Ward 1,Ward 1 (East Boston),top center
+2,19120,13626,2.0,1.0460251046025104,71.26569037656904,Remaining Wards,Charlestown,Ward 2,Ward 2 (Charlestown),bottom center
+3,44365,29016,6.0,1.3524174461850558,65.40290769750929,Remaining Wards,North End/West End,Ward 3,Ward 3 (North End/West End),top right
+4,38385,22859,5.0,1.3025921583952065,59.55190829751204,Remaining Wards,Fenway/South End,Ward 4,Ward 4 (Fenway/South End),bottom left
+5,39792,26853,7.0,1.759147567350221,67.48341375150784,Remaining Wards,Beacon Hill/Back Bay,Ward 5,Ward 5 (Beacon Hill/Back Bay),top center
+6,27642,22326,3.0,1.0853049706967657,80.76839591925331,Remaining Wards,South Boston/Seaport,Ward 6,Ward 6 (South Boston/Seaport),bottom center
+7,22052,13877,4.0,1.8138944313440957,62.928532559405035,Remaining Wards,South Boston/Dorchester,Ward 7,Ward 7 (South Boston/Dorchester),top right
+8,15442,3670,22.0,14.246859215127573,23.766351508871907,Target Wards,South End/Roxbury,Ward 8,Ward 8 (South End/Roxbury),bottom left
+9,19934,6016,12.0,6.019865556335909,30.17959265576402,Target Wards,Roxbury/South End,Ward 9,Ward 9 (Roxbury/South End),top center
+10,24298,9026,5.0,2.057782533541855,37.14709029549757,Remaining Wards,Mission Hill/JP,Ward 10,Ward 10 (Mission Hill/JP),bottom center
+11,21772,8004,8.0,3.6744442403086537,36.762814624288076,Target Wards,Roxbury/JP,Ward 11,Ward 11 (Roxbury/JP),top right
+12,20070,1011,13.0,6.4773293472845035,5.037369207772795,Target Wards,Roxbury,Ward 12,Ward 12 (Roxbury),bottom left
+13,22104,7183,13.0,5.881288454578358,32.49638074556641,Target Wards,Dorchester,Ward 13,Ward 13 (Dorchester),top center
+14,34985,972,15.0,4.287551807917679,2.778333571530656,Target Wards,Dorchester/Mattapan,Ward 14,Ward 14 (Dorchester/Mattapan),bottom center
+15,19346,1814,11.0,5.685929907991316,9.376615320996589,Target Wards,Dorchester,Ward 15,Ward 15 (Dorchester),top right
+16,25643,11898,8.0,3.119759778497056,46.39862730569746,Target Wards,Dorchester (Neponset),Ward 16,Ward 16 (Dorchester (Neponset)),bottom left
+17,26450,4043,8.0,3.024574669187145,15.285444234404535,Target Wards,Dorchester (Codman Sq),Ward 17,Ward 17 (Dorchester (Codman Sq)),top center
+18,62148,11688,13.0,2.0917809100856024,18.80671944390809,Remaining Wards,Hyde Park/Mattapan,Ward 18,Ward 18 (Hyde Park/Mattapan),bottom center
+19,24731,14429,7.0,2.830455703368242,58.34377906271481,Target Wards,JP/Roslindale,Ward 19,Ward 19 (JP/Roslindale),top right
+20,39283,28151,2.0,0.5091260850749688,71.66204210472723,Remaining Wards,West Roxbury/Roslindale,Ward 20,Ward 20 (West Roxbury/Roslindale),bottom left
+21,52283,29842,4.0,0.7650670389992923,57.077826444542204,Remaining Wards,Allston/Brighton,Ward 21,Ward 21 (Allston/Brighton),top center
+22,32736,19400,0.0,0.0,59.26197458455523,Remaining Wards,Brighton,Ward 22,Ward 22 (Brighton),bottom center
