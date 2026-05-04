@@ -7,7 +7,7 @@ import folium
 import plotly.express as px
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
-from shapely.geometry import shape, Point
+from shapely.geometry import shape, Point, Polygon
 from shapely.ops import unary_union
 from folium.features import DivIcon
 from selenium import webdriver
@@ -48,6 +48,40 @@ WARD_TO_NEIGHBORHOOD = {
 }
 
 
+PARK_PERIMETER = [
+    (42.300993112616695, -71.1069766895908),
+    (42.300136099133226, -71.10365075039294),
+    (42.29345416852605, -71.09650534553212),
+    (42.293025611971665, -71.09474581640262),
+    (42.29677141505546, -71.09157008090055),
+    (42.29821571181321, -71.08702105437058),
+    (42.30514537397102, -71.08492811841207),
+    (42.30774072453225, -71.08921942954525),
+    (42.310843720593866, -71.09316743578083),
+    (42.31266313346904, -71.09387311805808),
+    (42.31342473257239, -71.09513190266058),
+    (42.312352849748976, -71.0965623397091),
+    (42.31170406969818, -71.09768761685392),
+    (42.30971537613775, -71.09810721172147),
+    (42.309080673477204, -71.09917527138437),
+    (42.3088691044503, -71.09917527137033),
+    (42.30676748067785, -71.10075828837067),
+    (42.30582243235453, -71.10268461026267),
+    (42.30482094767837, -71.1030469876313),
+    (42.3039322930724, -71.10331400254702),
+    (42.30185871683798, -71.10564084679149),
+    (42.300993112616695, -71.1069766895908),
+]
+
+SHATTUCK_SITE = [
+    [42.30015292081921, -71.10363273406915],
+    [42.300779811244155, -71.10290317321058],
+    [42.30074013481999, -71.10192684912042],
+    [42.298486472887504, -71.09942703029617],
+    [42.29774846042762, -71.10090760968563],
+    [42.29991485952911, -71.10327868247602],
+    [42.30015292081921, -71.10363273406915]
+]
 # --- 1. DATA LOADING & GEOCODING ---
 def get_geocoded_data():
     df = pd.read_csv(SOURCE_CSV).dropna(subset=["Street Address"])
@@ -301,6 +335,55 @@ def create_ward_map(df, analysis_df, ward_geojson):
                 html=f'<div style="font-size:10pt; font-weight:bold; text-shadow:1px 1px white;">{wnum}</div>'
             ),
         ).add_to(m)
+
+    parks_layer = folium.FeatureGroup(
+        name="Franklin Park", show=True
+    ).add_to(m)
+
+    park_style = {
+        "fillColor": "green",
+        "color": "#1a3a2a",
+        "weight": 1,
+        "fillOpacity": 1.0,
+    }
+    folium.Polygon(locations=PARK_PERIMETER, **park_style).add_to(parks_layer)
+    fp_centroid = Polygon([(p[1], p[0]) for p in PARK_PERIMETER]).centroid
+    folium.Marker(
+        [fp_centroid.y, fp_centroid.x],
+        icon=DivIcon(
+            icon_anchor=(60, 10),
+            html="""
+            <div style="font-size: 4pt; color: black; font-weight: bold; text-transform: uppercase; 
+            width: 120px; text-align: center; pointer-events: none; text-shadow: 1px 1px 2px white;">
+                Franklin Park
+            </div>""",
+        ),
+    ).add_to(parks_layer)
+
+    folium.Polygon(
+        locations=SHATTUCK_SITE,
+        color="black",
+        weight=2,
+        fill=True,
+        fill_color="black",
+        fill_opacity=0.7
+    ).add_to(m)
+
+    # 4. Shattuck Campus Label (Centered with Black Outline)
+    # The text-shadow creates a "halo" making white text readable on any background
+    folium.Marker(
+        location=[42.2995, -71.1020], 
+        icon=DivIcon(
+            icon_size=(100,30),
+            icon_anchor=(50,15), # Half of icon_size to center
+            html="""
+                <div style="font-family: Arial, sans-serif; font-weight: bold; color: white; 
+                font-size: 10pt; text-align: center; width: 100px; line-height: 1.1;
+                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+                    SHATTUCK<br>CAMPUS
+                </div>"""
+        )
+    ).add_to(m)
 
     # Site Markers (with Jitter)
     tracker = defaultdict(int)
