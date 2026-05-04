@@ -23,6 +23,7 @@ p <- ggplot(stats, aes(x = White_Pct, y = Normalized_Sites, label = Display_Labe
         segment.alpha = 0.5,
         min.segment.length = 0
     ) +
+    stat_cor(method = "pearson", label.x = max(stats$White_Pct) * 0.75, label.y = max(stats$Normalized_Sites) * 0.95) +
     # Labels and Styling
     labs(
         title = "SUD Supportive Housing Density vs. Racial Demographics by Ward",

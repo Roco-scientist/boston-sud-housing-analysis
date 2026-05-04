@@ -8,6 +8,7 @@ import plotly.express as px
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from shapely.geometry import shape, Point, Polygon
+from scipy.stats import linregress
 from shapely.ops import unary_union
 from folium.features import DivIcon
 from selenium import webdriver
@@ -486,6 +487,18 @@ def create_graphs(ward_stats, precinct_stats):
         positions[i % len(positions)] for i in range(len(ward_stats))
     ]
 
+    w_slope, w_intercept, w_r, w_p, w_se = linregress(ward_stats["White_Pct"], ward_stats["Normalized_Sites"])
+    w_r2 = w_r**2
+
+    print("\n" + "="*50)
+    print("WARD LEVEL STATISTICAL SIGNIFICANCE (Race vs Density)")
+    print("-" * 50)
+    print(f"Correlation (r): {w_r:.3f}")
+    print(f"R-squared:       {w_r2:.3f}")
+    print(f"p-value:         {w_p:.4g}")
+    print(f"Significant?     {'Yes (p < 0.05)' if w_p < 0.05 else 'No (p >= 0.05)'}")
+    print("="*50 + "\n")
+
     # 2. Demographic Scatter (Normalized Density vs Racial Makeup)
     fig2 = px.scatter(
         ward_stats,
@@ -524,11 +537,34 @@ def create_graphs(ward_stats, precinct_stats):
         ],
     )
 
+    fig2.add_annotation(
+        x=0.98, y=0.98, xref="paper", yref="paper",
+        text=f"<b>OLS Regression:</b><br>R² = {w_r2:.3f}<br>p-value = {w_p:.4g}",
+        showarrow=False,
+        font=dict(size=14, color="black"),
+        bgcolor="rgba(255, 255, 255, 0.8)",
+        bordercolor="black",
+        borderwidth=1,
+        align="left"
+    )
+
     fig2.update_xaxes(showgrid=True, gridcolor="LightGray", ticksuffix="%")
     fig2.update_yaxes(showgrid=True, gridcolor="LightGray")
 
     fig2.write_image("demographic_scatter.png", width=1600, height=900, scale=3)
     ward_stats.to_csv("ward_stats_for_r.csv", index=False)
+
+    p_slope, p_intercept, p_r, p_p, p_se = linregress(precinct_stats["White_Pct"], precinct_stats["Normalized_Sites"])
+    p_r2 = p_r**2
+
+    print("\n" + "="*50)
+    print("PRECINCT LEVEL STATISTICAL SIGNIFICANCE (Race vs Density)")
+    print("-" * 50)
+    print(f"Correlation (r): {p_r:.3f}")
+    print(f"R-squared:       {p_r2:.3f}")
+    print(f"p-value:         {p_p:.4g}")
+    print(f"Significant?     {'Yes (p < 0.05)' if p_p < 0.05 else 'No (p >= 0.05)'}")
+    print("="*50 + "\n")
 
     fig3 = px.scatter(
         precinct_stats,
@@ -545,6 +581,18 @@ def create_graphs(ward_stats, precinct_stats):
 
     fig3.update_traces(marker=dict(size=8, color="firebrick", opacity=0.5))
     fig3.update_layout(plot_bgcolor="white")
+
+    fig3.add_annotation(
+        x=0.98, y=0.98, xref="paper", yref="paper",
+        text=f"<b>OLS Regression:</b><br>R² = {p_r2:.3f}<br>p-value = {p_p:.4g}",
+        showarrow=False,
+        font=dict(size=14, color="black"),
+        bgcolor="rgba(255, 255, 255, 0.8)",
+        bordercolor="black",
+        borderwidth=1,
+        align="left"
+    )
+
     fig3.write_image("precinct_demographic_scatter.png", scale=3)
     import subprocess
 
